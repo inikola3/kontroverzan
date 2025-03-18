@@ -1,14 +1,12 @@
 import { NextResponse } from "next/server"
-import { ordersCreateSerbia } from "@/lib/queries/ordersCreateSerbia"
 
 export async function POST(req) {
     try {
         const body = await req.json()
-        console.log('Webhook Payload Serbia: ', body)
-        await ordersCreateSerbia(body)
+        console.log('Deleted Order ID: ', body.id)
         return NextResponse.json({ success: true }, { status: 200 })
     } catch (error) {
-        console.error('There was an issue with the webhook data', error)
+        console.error('There was an error in order deletion webhook', error)
         return NextResponse.json({ success: false }, { status: 500 })
     }
 }
