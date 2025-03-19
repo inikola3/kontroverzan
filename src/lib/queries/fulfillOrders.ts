@@ -1,12 +1,12 @@
 import { db } from '@/db'
 import { orders } from '@/db/schema'
-import { inArray } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 
-export async function fulfillOrders(idArray: number[]) {
+export async function fulfillOrders(id: string) {
     const fulfillOrders = await db.update(orders)
         .set({ orderStatus: 'fulfilled' })
         .where(
-            inArray(orders.id, idArray)
+            eq(orders.orderId, id)
         )
     return fulfillOrders
 }

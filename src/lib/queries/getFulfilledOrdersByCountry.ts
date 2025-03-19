@@ -1,6 +1,6 @@
 import { db } from '@/db'
 import { orders } from '@/db/schema'
-import { and, eq } from 'drizzle-orm'
+import { and, eq, asc } from 'drizzle-orm'
 
 export async function getFulfilledOrdersByCountry(country: string) {
     const FulfilledOrdersByCountry = await db.select()
@@ -11,5 +11,7 @@ export async function getFulfilledOrdersByCountry(country: string) {
                 eq(orders.country, country)
             )
         )
+        .orderBy(asc(orders.createdAt))
+
     return FulfilledOrdersByCountry
 }
