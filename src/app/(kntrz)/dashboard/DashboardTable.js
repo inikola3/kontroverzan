@@ -19,7 +19,7 @@ export function DashboardTable({ columns, data, country, setCountry, refreshOrde
         getPaginationRowModel: getPaginationRowModel(),
         initialState: {
             pagination: {
-                pageSize: 12,
+                pageSize: 50,
             },
         },
         onColumnFiltersChange: setColumnFilters,
@@ -42,13 +42,13 @@ export function DashboardTable({ columns, data, country, setCountry, refreshOrde
         id: row.original.id,
         status: row.original.orderStatus,
         ['Ime i prezime']: row.original.customerName,
-        Ulica: row.original.street,
         Grad: row.original.city,
         ['Poštanski Broj']: row.original.zip,
-        ['Broj Telefona']: row.original.phoneNumber,
+        Adresa: row.original.street,
+        ['Kontakt Telefon']: row.original.phoneNumber,
         [country === 'Serbia' ? 'Cena' : 'Cijena']: row.original.price,
         ['Težina(g)']: row.original.weight,
-        Napomene: row.original.notes
+        Napomena: row.original.notes
     }))
 
     //console.log('Rows Selected: ', rowData)

@@ -68,16 +68,6 @@ export const columns = [
         }
     },
     {
-        accessorKey: 'street',
-        header: 'Street',
-        cell: ({ row }) => {
-            const street = row.getValue('street')
-            return (
-                <span className="font-sans">{street}</span>
-            )
-        }
-    },
-    {
         accessorKey: 'city',
         header: 'City',
         cell: ({ row }) => {
@@ -94,6 +84,16 @@ export const columns = [
             const zip = row.getValue('zip')
             return (
                 <span className="font-sans">{zip}</span>
+            )
+        }
+    },
+    {
+        accessorKey: 'street',
+        header: 'Street',
+        cell: ({ row }) => {
+            const street = row.getValue('street')
+            return (
+                <span className="font-sans">{street}</span>
             )
         }
     },
