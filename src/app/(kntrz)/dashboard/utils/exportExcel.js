@@ -15,7 +15,7 @@ export async function exportExcel(data, country) {
     const dataCleaned = country === 'Serbia' ?
         data.map(({ id, status, ...rest }) => ({
             ...rest,
-            ['Račun za otkup']: '265-2050310002802-85'
+            ['Broj žiro računa']: '265-2050310002802-85'
         }))
         : data.map(({ id, status, ...rest }) => rest)
 
@@ -24,7 +24,7 @@ export async function exportExcel(data, country) {
     const month = today.getMonth() + 1
     const year = today.getFullYear()
 
-    const date = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year}`
+    const date = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year}.`
 
     const ws = XLSX.utils.json_to_sheet(dataCleaned)
 
@@ -34,7 +34,7 @@ export async function exportExcel(data, country) {
 
     const wb = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, "Orders")
-    XLSX.writeFile(wb, `${country === 'BIH' ? 'BiH ' : ''}Kontroverzan ${date}.xlsx`)
+    XLSX.writeFile(wb, `${country === 'BIH' ? 'BiH ' : ''}${date} Kontroverzan.xlsx`)
 
     toast.success('Download started!',
         { description: 'Your Excel file is being saved.' }

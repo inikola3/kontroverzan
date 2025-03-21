@@ -41,14 +41,15 @@ export function DashboardTable({ columns, data, country, setCountry, refreshOrde
     const rowData = rowsModel.map((row) => ({
         id: row.original.id,
         status: row.original.orderStatus,
-        ['Ime i prezime']: row.original.customerName,
-        Grad: row.original.city,
-        ['Poštanski Broj']: row.original.zip,
-        Adresa: row.original.street,
-        ['Kontakt Telefon']: row.original.phoneNumber,
-        [country === 'Serbia' ? 'Cena' : 'Cijena']: row.original.price,
-        ['Težina(g)']: row.original.weight,
-        Napomena: row.original.notes
+        ['Shipping address: Name']: row.original.customerName,
+        ['Shipping address: City']: row.original.city,
+        ['Shipping address: Zip']: row.original.zip,
+        ['Shipping address: First line']: row.original.street,
+        ['Shipping address: Phone']: row.original.phoneNumber,
+        // [country === 'Serbia' ? 'Cena' : 'Cijena']: row.original.price,
+        ['Shop original total price']: row.original.price,
+        ['Total weight']: row.original.weight,
+        ['Shipping address: Second line']: row.original.notes
     }))
 
     //console.log('Rows Selected: ', rowData)

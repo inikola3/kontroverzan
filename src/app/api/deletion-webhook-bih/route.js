@@ -9,7 +9,8 @@ export async function POST(req) {
             return NextResponse.json({ error: "Missing required field: id" }, { status: 400 });
         }
 
-        await deleteOrders(body.id.toString())
+        id = body.id.toString()
+        await deleteOrders(id)
 
         return NextResponse.json({ success: true }, { status: 200 })
     } catch (error) {
