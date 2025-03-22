@@ -32,7 +32,7 @@ export function Sidebar() {
                         </Link>
                     </li>
                     <li className="navBtn relative group">
-                        <Link href=''>
+                        <Link href='/financials'>
                             <IoReceiptOutline
                                 size={40}
                                 color="#2b2b2b"
