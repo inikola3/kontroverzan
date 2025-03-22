@@ -14,6 +14,7 @@ interface payloadType {
         phone?: string
     },
     total_price: string,
+    total_discounts: string,
     total_weight: number,
 }
 
@@ -34,6 +35,7 @@ export async function ordersCreateSerbia(orderPayload: payloadType) {
                 price: parseFloat(orderPayload.total_price).toFixed(2),
                 weight: orderPayload.total_weight,
                 notes: orderPayload.shipping_address?.address2 ?? null,
+                totalDiscounts: parseFloat(orderPayload.total_discounts).toFixed(2),
                 //createdAt: orderPayload.,
                 //updatedAt: orderPayload.,
             } as OrderInsertType
