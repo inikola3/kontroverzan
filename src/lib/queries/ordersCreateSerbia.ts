@@ -31,7 +31,7 @@ export async function ordersCreateSerbia(orderPayload: payloadType) {
                 city: orderPayload.shipping_address?.city ?? 'unknown',
                 zip: orderPayload.shipping_address?.zip ?? '000000',
                 phoneNumber: orderPayload.shipping_address?.phone ?? 'NA',
-                price: parseFloat(orderPayload.total_price),
+                price: parseFloat(orderPayload.total_price).toFixed(2),
                 weight: orderPayload.total_weight,
                 notes: orderPayload.shipping_address?.address2 ?? null,
                 //createdAt: orderPayload.,

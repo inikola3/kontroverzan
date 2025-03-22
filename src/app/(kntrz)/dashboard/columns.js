@@ -111,9 +111,14 @@ export const columns = [
         accessorKey: 'price',
         header: 'Price',
         cell: ({ row }) => {
+            const country = row.original.country
             const price = row.getValue('price')
+
+            const formattedPrice = country === 'Serbia'
+                ? Math.round(parseFloat(price))
+                : parseFloat(price).toFixed(2)
             return (
-                <span className="font-sans">{price}</span>
+                <span className="font-sans">{formattedPrice}</span>
             )
         }
     },
