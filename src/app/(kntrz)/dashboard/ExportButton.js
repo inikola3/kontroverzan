@@ -2,11 +2,10 @@ import { Button } from "@/components/ui/button";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { exportExcel } from "./utils/exportExcel"
 
-export function ExportButton({ data, country, refreshOrders }) {
+export function ExportButton({ data, identifier }) {
 
     async function handleExport() {
-        await exportExcel(data, country)
-        // refreshOrders()
+        await exportExcel(data, identifier)
     }
 
     return (

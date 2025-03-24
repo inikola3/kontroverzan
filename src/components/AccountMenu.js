@@ -27,7 +27,7 @@ export default async function AccountMenu() {
                     <UserInfo />
                 </div>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent className="w-fit">
                 <div className="flex flex-col h-full w-full border border-dashed rounded-md">
                     {/* <div className="border-b border-dashed p-2">{user.given_name}</div>
                     <div className="border-b border-dashed p-2">{user.family_name}</div> */}

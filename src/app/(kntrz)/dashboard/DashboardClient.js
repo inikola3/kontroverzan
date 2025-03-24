@@ -6,8 +6,10 @@ import { DashboardTable } from "./DashboardTable"
 export default function DashboardClient({ ordersData }) {
     const [orders, setOrders] = useState(ordersData)
     const [country, setCountry] = useState('Serbia')
+    const [loading, setLoading] = useState(false)
 
     async function fetchOrders() {
+        setLoading(true)
         try {
             const res = await fetch(`/api/orders?country=${country}`) // api route
             if (!res.ok) throw new Error(`Failed to fetch orders: ${res.statusText}`)
@@ -16,6 +18,8 @@ export default function DashboardClient({ ordersData }) {
             setOrders(data)
         } catch (error) {
             console.error('Error fetching orders: ', error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -31,6 +35,7 @@ export default function DashboardClient({ ordersData }) {
                 country={country}
                 setCountry={setCountry}
                 refreshOrders={fetchOrders}
+                loading={loading}
             />
         </main>
     )

@@ -7,8 +7,9 @@ import { OrderDates } from "../dashboard/OrderDates"
 import { CountryFilter } from "@/components/CountryFilter"
 import { IoSearchOutline } from "react-icons/io5"
 import { ExportButton } from "../dashboard/ExportButton"
+import { RefreshButton } from "@/components/RefreshButton"
 
-export function FinancialsTable({ columns, data, country, setCountry, refreshOrders }) {
+export function FinancialsTable({ columns, data, country, setCountry, refreshOrders, loading }) {
     const [columnFilters, setColumnFilters] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
 
@@ -28,36 +29,29 @@ export function FinancialsTable({ columns, data, country, setCountry, refreshOrd
         state: {
             columnFilters,
             rowSelection,
+            globalFilter: true,
         },
-
+        globalFilterFn: (row) => parseFloat(row.original.totalDiscounts) !== 0,
     })
 
-    // const rowsModel = table.getSelectedRowModel().rows
+    const rowsModel = table.getSelectedRowModel().rows
 
     // if (rowsModel.length > 0) {
     //     const country = rowsModel[0].original.country
     // }
 
-    // const rowData = rowsModel.map((row) => ({
-    //     id: row.original.id,
-    //     status: row.original.orderStatus,
-    //     ['Shipping address: Name']: row.original.customerName,
-    //     ['Shipping address: City']: row.original.city,
-    //     ['Shipping address: Zip']: row.original.zip,
-    //     ['Shipping address: First line']: row.original.street,
-    //     ['Shipping address: Phone']: row.original.phoneNumber,
-    //     // [country === 'Serbia' ? 'Cena' : 'Cijena']: row.original.price,
-    //     ['Shop original total price']: row.original.price,
-    //     ['Total weight']: row.original.weight,
-    //     ['Shipping address: Second line']: row.original.notes
-    // }))
-
+    const rowData = rowsModel.map((row) => ({
+        id: row.original.id,
+        ['Ime']: row.original.customerName,
+        ['Popust']: -row.original.totalDiscounts,
+    }))
+    const identifier = 'niv'
     //console.log('Rows Selected: ', rowData)
 
     return (
         <div className="w-full">
             <div className="flex relative items-center justify-between py-4">
-                <div className="flex sm:items-center sm:flex-row flex-col gap-3">
+                <div className="flex sm:items-center flex-row gap-3">
                     <div className="flex items-center">
                         <IoSearchOutline className="absolute left-3.5 text-black text-lg cursor-pointer"
                             onClick={() => document.getElementById("searchInput")?.focus()}
@@ -75,17 +69,20 @@ export function FinancialsTable({ columns, data, country, setCountry, refreshOrd
                     <OrderDates
                         table={table}
                     />
+                    <RefreshButton
+                        refreshOrders={refreshOrders}
+                        loading={loading}
+                    />
                 </div>
                 <div className="flex relative sm:flex-row flex-col gap-3">
                     {/* <CountryFilter
                         country={country}
                         setCountry={setCountry}
                     /> */}
-                    {/* <ExportButton
+                    <ExportButton
                         data={rowData}
-                        country={country}
-                        refreshOrders={refreshOrders}
-                    /> */}
+                        identifier={identifier}
+                    />
                 </div>
             </div>
             <div className="rounded-xl border w-full">

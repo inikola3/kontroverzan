@@ -7,8 +7,9 @@ import { OrderDates } from "./OrderDates"
 import { CountryFilter } from "@/components/CountryFilter"
 import { IoSearchOutline } from "react-icons/io5"
 import { ExportButton } from "./ExportButton"
+import { RefreshButton } from "@/components/RefreshButton"
 
-export function DashboardTable({ columns, data, country, setCountry, refreshOrders }) {
+export function DashboardTable({ columns, data, country, setCountry, refreshOrders, loading }) {
     const [columnFilters, setColumnFilters] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
 
@@ -40,7 +41,7 @@ export function DashboardTable({ columns, data, country, setCountry, refreshOrde
 
     const rowData = rowsModel.map((row) => ({
         id: row.original.id,
-        status: row.original.orderStatus,
+        // status: row.original.orderStatus,
         ['Shipping address: Name']: row.original.customerName,
         ['Shipping address: City']: row.original.city,
         ['Shipping address: Zip']: row.original.zip,
@@ -72,9 +73,15 @@ export function DashboardTable({ columns, data, country, setCountry, refreshOrde
                             className="focus:max-w-[230px] max-w-[30px] h-9 pl-8 transition-[max-width] duration-300 ease-in-out"
                         />
                     </div>
-                    <OrderDates
-                        table={table}
-                    />
+                    <div className="flex flex-row gap-3">
+                        <OrderDates
+                            table={table}
+                        />
+                        <RefreshButton
+                            refreshOrders={refreshOrders}
+                            loading={loading}
+                        />
+                    </div>
                 </div>
                 <div className="flex relative sm:flex-row flex-col gap-3">
                     <CountryFilter
@@ -83,7 +90,7 @@ export function DashboardTable({ columns, data, country, setCountry, refreshOrde
                     />
                     <ExportButton
                         data={rowData}
-                        country={country}
+                        identifier={country}
                         refreshOrders={refreshOrders}
                     />
                 </div>

@@ -51,7 +51,7 @@ export function SheetComponent() {
                                 </Link>
                             </li>
                             <li className="relative p-2 w-full group rounded-xl border">
-                                <Link href='' className="flex flex-row items-center gap-3 w-full p-1 rounded-[7px] hover:bg-ghostBtn">
+                                <Link href='/financials' className="flex flex-row items-center gap-3 w-full p-1 rounded-[7px] hover:bg-ghostBtn">
                                     <IoReceiptOutline
                                         size={50}
                                         color="#2b2b2b"

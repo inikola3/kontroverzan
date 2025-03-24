@@ -2,7 +2,7 @@ import { getUnfulfilledOrdersByCountry } from "@/lib/queries/getUnfulfilledOrder
 import FinancialsClient from "./FinancialsClient"
 
 export const metadata = {
-    title: 'Financial Reports'
+    title: 'Financials'
 }
 export default async function Financials() {
     const ordersData = await getUnfulfilledOrdersByCountry("Serbia")

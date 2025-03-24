@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx'
 import { toast } from 'sonner'
 
-export async function exportExcel(data, country) {
+export async function exportExcel(data, identifier) {
     if (!data || data.length === 0) {
         toast.error("No data available to download.", {
             description: "Please select data from the table.",
@@ -9,15 +9,19 @@ export async function exportExcel(data, country) {
         return
     }
 
-    const idArray = data.map(row => row.id)
-    const status = data[0].status
+    const totalDailyDiscount = identifier === 'niv' ? data.reduce((sum, row) => sum + (parseFloat(row.Popust) || 0), 0) : 0
 
-    const dataCleaned = country === 'Serbia' ?
-        data.map(({ id, status, ...rest }) => ({
+    const dataCleaned = identifier === 'Serbia' ?
+        data.map(({ id, ...rest }) => ({
             ...rest,
             ['Broj žiro računa']: '265-2050310002802-85'
         }))
-        : data.map(({ id, status, ...rest }) => rest)
+        : data.map(({ id, ...rest }) => rest)
+
+    const divider = ''
+    if (identifier === 'niv') {
+        dataCleaned[0] = { ...dataCleaned[0], ['']: divider, ['Ukupno']: totalDailyDiscount }
+    }
 
     const today = new Date()
     const day = today.getDate()
@@ -34,7 +38,7 @@ export async function exportExcel(data, country) {
 
     const wb = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, "Orders")
-    XLSX.writeFile(wb, `${country === 'BIH' ? 'BiH ' : ''}${date} Kontroverzan.xlsx`)
+    XLSX.writeFile(wb, identifier === 'niv' ? `${date} Nivelacija.xlsx` : `${identifier === 'BIH' ? 'BiH ' : ''}${date} Kontroverzan.xlsx`)
 
     toast.success('Download started!',
         { description: 'Your Excel file is being saved.' }

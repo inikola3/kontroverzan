@@ -61,7 +61,7 @@ export const columns = [
 
             const formattedDiscount = parseFloat(discount).toFixed(2)
             return (
-                <span className="font-sans">{formattedDiscount}</span>
+                <span className="font-sans">-{formattedDiscount}</span>
             )
         }
     },
