@@ -40,13 +40,23 @@ export function FinancialsTable({ columns, data, country, setCountry, refreshOrd
     //     const country = rowsModel[0].original.country
     // }
 
+    const dates = rowsModel.map((row) => {
+        const fullDate = new Date(row.original.createdAt)
+        return `${fullDate.getDate()}.${fullDate.getMonth() + 1}.${fullDate.getFullYear()}`
+    })
+    const uniqueDates = [...new Set(dates)].join(", ")
+
     const rowData = rowsModel.map((row) => ({
         id: row.original.id,
         ['Ime']: row.original.customerName,
-        ['Popust']: -row.original.totalDiscounts,
+        ['Popust']: parseFloat(-row.original.totalDiscounts),
     }))
+
+    if (rowsModel.length > 0) {
+        rowData.push({ 'Ime': '', 'Popust': '' })
+        rowData.push({ 'Ime': 'Datumi:', 'Popust': uniqueDates })
+    }
     const identifier = 'niv'
-    //console.log('Rows Selected: ', rowData)
 
     return (
         <div className="w-full">

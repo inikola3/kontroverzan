@@ -9,7 +9,9 @@ export async function exportExcel(data, identifier) {
         return
     }
 
-    const totalDailyDiscount = identifier === 'niv' ? data.reduce((sum, row) => sum + (parseFloat(row.Popust) || 0), 0) : 0
+    const totalDailyDiscount = identifier === 'niv' ?
+        data.reduce((sum, row) => sum + (typeof row.Popust === 'number' ? row.Popust : 0), 0)
+        : 0
 
     const dataCleaned = identifier === 'Serbia' ?
         data.map(({ id, ...rest }) => ({
@@ -18,9 +20,11 @@ export async function exportExcel(data, identifier) {
         }))
         : data.map(({ id, ...rest }) => rest)
 
-    const divider = ''
+    // const divider = ''
     if (identifier === 'niv') {
-        dataCleaned[0] = { ...dataCleaned[0], ['']: divider, ['Ukupno']: totalDailyDiscount }
+        // dataCleaned.push({ ['Ime']: '', ['Popust']: '' })
+        dataCleaned.push({ ['Ime']: 'Ukupno:', ['Popust']: totalDailyDiscount })
+        // dataCleaned[0] = { ...dataCleaned[0], ['']: divider, ['Ukupno']: totalDailyDiscount }
     }
 
     const today = new Date()
@@ -38,7 +42,7 @@ export async function exportExcel(data, identifier) {
 
     const wb = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, "Orders")
-    XLSX.writeFile(wb, identifier === 'niv' ? `${date} Nivelacija.xlsx` : `${identifier === 'BIH' ? 'BiH ' : ''}${date} Kontroverzan.xlsx`)
+    XLSX.writeFile(wb, identifier === 'niv' ? `${date} NIVELACIJE BIH.xlsx` : `${identifier === 'BIH' ? 'BiH ' : ''}${date} Kontroverzan.xlsx`)
 
     toast.success('Download started!',
         { description: 'Your Excel file is being saved.' }

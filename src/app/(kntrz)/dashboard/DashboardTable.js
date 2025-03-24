@@ -48,7 +48,7 @@ export function DashboardTable({ columns, data, country, setCountry, refreshOrde
         ['Shipping address: First line']: row.original.street,
         ['Shipping address: Phone']: row.original.phoneNumber,
         // [country === 'Serbia' ? 'Cena' : 'Cijena']: row.original.price,
-        ['Shop original total price']: row.original.price,
+        ['Shop original total price']: parseFloat(row.original.price),
         ['Total weight']: row.original.weight,
         ['Shipping address: Second line']: row.original.notes
     }))
