@@ -4,7 +4,7 @@ import { ordersCreateSerbia } from "@/lib/queries/ordersCreateSerbia"
 export async function POST(req) {
     try {
         const body = await req.json()
-        console.log('Webhook Payload Serbia: ', body)
+        //console.log('Webhook Payload Serbia: ', body)
         await ordersCreateSerbia(body)
         return NextResponse.json({ success: true }, { status: 201 })
     } catch (error) {

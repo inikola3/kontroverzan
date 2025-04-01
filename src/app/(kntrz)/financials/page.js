@@ -5,7 +5,7 @@ export const metadata = {
     title: 'Financials'
 }
 export default async function Financials() {
-    const ordersData = await getUnfulfilledOrdersByCountry("Serbia")
+    const ordersData = await getUnfulfilledOrdersByCountry("BIH")
     return <FinancialsClient
         ordersData={ordersData}
     />

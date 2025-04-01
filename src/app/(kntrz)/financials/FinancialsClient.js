@@ -5,7 +5,7 @@ import { FinancialsTable } from "./FinancialsTable"
 
 export default function FinancialsClient({ ordersData }) {
     const [orders, setOrders] = useState(ordersData)
-    const [country, setCountry] = useState('Serbia')
+    const [country, setCountry] = useState('BIH')
     const [loading, setLoading] = useState(false)
 
     async function fetchOrders() {
