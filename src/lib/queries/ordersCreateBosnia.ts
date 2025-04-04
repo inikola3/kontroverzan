@@ -9,12 +9,13 @@ interface payloadType {
         last_name?: string,
         address1?: string,
         address2?: string,
-        zip?: string,
         city?: string,
+        zip?: string,
         phone?: string
-    }
+    },
+    total_price: string,
+    total_discounts: string,
     total_weight: number,
-    total_price: string
 }
 
 type OrderInsertType = InferInsertModel<typeof orders>
@@ -33,7 +34,8 @@ export async function ordersCreateBosnia(orderPayload: payloadType) {
                 phoneNumber: orderPayload.shipping_address?.phone ?? 'NA',
                 price: parseFloat(orderPayload.total_price).toFixed(2),
                 weight: orderPayload.total_weight,
-                notes: orderPayload.shipping_address?.address2 ?? null
+                notes: orderPayload.shipping_address?.address2 ?? null,
+                totalDiscounts: parseFloat(orderPayload.total_discounts).toFixed(2),
             } as OrderInsertType
         )
         return newOrder
