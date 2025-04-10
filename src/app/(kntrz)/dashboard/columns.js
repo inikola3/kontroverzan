@@ -1,23 +1,54 @@
 'use-client'
 
 import { Checkbox } from "@/components/ui/checkbox"
+import { MoreHorizontal } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
-const replaceDiacritics = (text) => {
-    if (!text) return ''
-    return text
-        .replace(/ć/g, 'c')
-        .replace(/č/g, 'c')
-        .replace(/đ/g, 'dj')
-        .replace(/š/g, 's')
-        .replace(/ž/g, 'z')
-        .replace(/Ć/g, 'C')
-        .replace(/Č/g, 'C')
-        .replace(/Đ/g, 'Dj')
-        .replace(/Š/g, 'S')
-        .replace(/Ž/g, 'Z');
-}
 
-export const columns = [
+// const replaceDiacritics = (text) => {
+//     if (!text) return ''
+//     return text
+//         .replace(/ć/g, 'c')
+//         .replace(/č/g, 'c')
+//         .replace(/đ/g, 'dj')
+//         .replace(/š/g, 's')
+//         .replace(/ž/g, 'z')
+//         .replace(/Ć/g, 'C')
+//         .replace(/Č/g, 'C')
+//         .replace(/Đ/g, 'Dj')
+//         .replace(/Š/g, 'S')
+//         .replace(/Ž/g, 'Z');
+// }
+
+// const handleDelete = async (id) => {
+//     try {
+//         const response = await fetch('/api/delete-action', {
+//             method: 'DELETE',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ id })
+//         })
+
+//         const result = await response.json()
+
+//         if (!response.ok) {
+//             throw new Error(result.error || 'Failed to delete order')
+//         }
+
+//         console.log('Order deleted')
+//     } catch (error) {
+//         console.error('Error fulfilling orders: ', error)
+//     }
+// }
+
+export const columns = (handleDelete) => [
     {
         id: "select",
         header: ({ table }) => (
@@ -141,5 +172,34 @@ export const columns = [
                 <span className="font-sans">{notes}</span>
             )
         }
+    },
+    {
+        id: "actions",
+        cell: ({ row }) => {
+            const order = row.original
+
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                            onClick={() => handleDelete(order.orderId)}
+                        >
+                            Delete order
+                        </DropdownMenuItem>
+                        {/* <DropdownMenuSeparator />
+                        <DropdownMenuItem>---</DropdownMenuItem>
+                        <DropdownMenuItem>---</DropdownMenuItem> */}
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )
+        },
     },
 ]

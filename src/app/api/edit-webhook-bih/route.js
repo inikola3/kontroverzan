@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server"
+import { editOrders } from "@/lib/queries/editOrders"
 
 export async function POST(req) {
     try {
         const body = await req.json()
-        console.log('Edit webhook payload: ', body)
+
+        await editOrders(body)
 
         return NextResponse.json({ success: true }, { status: 200 })
     } catch (error) {

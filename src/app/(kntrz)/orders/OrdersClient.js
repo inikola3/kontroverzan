@@ -19,6 +19,28 @@ export function OrdersClient({ data }) {
         }
     }
 
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch('/api/delete-action', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            })
+
+            const result = await response.json()
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to delete order')
+            }
+            handleFetch()
+            console.log('Order deleted')
+        } catch (error) {
+            console.error('Error fulfilling orders: ', error)
+        }
+    }
+
+    const columnsFn = columns(handleDelete)
+
     useEffect(() => {
         handleFetch()
     }, [country])
@@ -26,7 +48,7 @@ export function OrdersClient({ data }) {
     return (
         <main className="flex justify-center w-full sm:p-20 p-5 pt-10 sm:ml-[64px]">
             <OrdersTable
-                columns={columns}
+                columns={columnsFn}
                 data={orders}
                 country={country}
                 setCountry={setCountry}
