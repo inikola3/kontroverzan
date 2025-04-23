@@ -29,7 +29,7 @@ export async function exportExcel(data, identifier) {
                 ['Masa pošiljke']: masa,
                 ['Opis pošiljke']: opis
             }) => {
-                const brojRacuna = ''
+                const brojRacuna = '194-1101147402-178'
                 const vrstaPosiljke = 'PAKET'
                 const brojPaketa = '1'
                 const hitnaPosiljka = '12'
