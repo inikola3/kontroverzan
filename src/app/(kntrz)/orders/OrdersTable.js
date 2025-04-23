@@ -58,15 +58,14 @@ export function OrdersTable({ columns, data, country, setCountry, refreshOrders 
 
     const rowData = rowsModel.map((row) => ({
         id: row.original.id,
-        ['Shipping address: Name']: row.original.customerName,
-        ['Shipping address: City']: row.original.city,
-        ['Shipping address: Zip']: row.original.zip,
-        ['Shipping address: First line']: row.original.street,
-        ['Shipping address: Phone']: row.original.phoneNumber,
-        // [country === 'Serbia' ? 'Cena' : 'Cijena']: row.original.price,
-        ['Shop original total price']: parseFloat(row.original.price),
-        ['Total weight']: row.original.weight,
-        ['Shipping address: Second line']: row.original.notes
+        [country === 'Serbia' ? 'Shipping address: Name' : 'Naziv primaoca']: row.original.customerName,
+        [country === 'Serbia' ? 'Shipping address: City' : 'Mjesto/Grad']: row.original.city,
+        [country === 'Serbia' ? 'Shipping address: Zip' : 'Poštanski broj']: row.original.zip,
+        [country === 'Serbia' ? 'Shipping address: First line' : 'Ulica/Adresa']: row.original.street,
+        [country === 'Serbia' ? 'Shipping address: Phone' : 'Telefon']: row.original.phoneNumber,
+        [country === 'Serbia' ? 'Shop original total price' : 'Vrijednost']: parseFloat(row.original.price),
+        [country === 'Serbia' ? 'Total weight' : 'Masa pošiljke']: row.original.weight,
+        [country === 'Serbia' ? 'Shipping address: Second line' : 'Opis pošiljke']: row.original.notes
     }))
 
     //console.log('Rows Selected: ', rowData)
@@ -100,7 +99,7 @@ export function OrdersTable({ columns, data, country, setCountry, refreshOrders 
                     />
                     <ExportButton
                         data={rowData}
-                        country={country}
+                        identifier={country}
                         refreshOrders={refreshOrders}
                     />
                 </div>
