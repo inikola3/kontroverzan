@@ -12,7 +12,7 @@ export async function POST(req) {
         const id = body.id.toString()
         await fulfillOrders(id)
 
-        //console.log('Fulfill Order Payload: ', body)
+        console.log('Fulfill Order Payload: ', body)
         return NextResponse.json({ success: true }, { status: 200 })
     } catch (error) {
         console.error('There was an error with a webhook', error)
