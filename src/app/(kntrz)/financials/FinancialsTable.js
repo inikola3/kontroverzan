@@ -44,18 +44,25 @@ export function FinancialsTable({ columns, data, country, setCountry, refreshOrd
         const fullDate = new Date(row.original.createdAt)
         return `${fullDate.getDate()}.${fullDate.getMonth() + 1}.${fullDate.getFullYear()}`
     })
+
     const uniqueDates = [...new Set(dates)].join(", ")
 
+    // if (rowsModel.length > 0) {
+    //     console.log('Data: ', rowsModel[0].original)
+    // }
     const rowData = rowsModel.map((row) => ({
         id: row.original.id,
-        ['Ime']: row.original.customerName,
-        ['Popust']: parseFloat(-row.original.totalDiscounts),
+        name: row.original.customerName,
+        // ['Popust']: parseFloat(-row.original.totalDiscounts),
+        time: row.original.createdAt,
+        items: row.original.items,
+        uniqueDates: uniqueDates
     }))
 
-    if (rowsModel.length > 0) {
-        rowData.push({ 'Ime': '', 'Popust': '' })
-        rowData.push({ 'Ime': 'Datumi:', 'Popust': uniqueDates })
-    }
+    // if (rowsModel.length > 0) {
+    //     rowData.push({ 'Ime': '', 'Popust': '' })
+    //     rowData.push({ 'Ime': 'Datumi:', 'Popust': uniqueDates })
+    // }
     const identifier = 'niv'
 
     return (

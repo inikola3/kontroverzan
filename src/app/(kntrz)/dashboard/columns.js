@@ -190,6 +190,7 @@ export const columns = (handleDelete) => [
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
+                            className="cursor-pointer"
                             onClick={() => handleDelete(order.orderId)}
                         >
                             Delete order

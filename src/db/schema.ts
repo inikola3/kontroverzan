@@ -1,4 +1,5 @@
 import { pgTable, serial, varchar, decimal, timestamp, integer, text } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm"
 
 export const orders = pgTable("orders", {
     id: serial("id").primaryKey(),
@@ -17,3 +18,27 @@ export const orders = pgTable("orders", {
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
 });
+
+export const orderItems = pgTable("order_items", {
+    id: serial("id").primaryKey(),
+    orderId: varchar("order_id").references(() => orders.orderId),
+    quantity: integer("quantity").notNull(),
+    name: varchar("name").notNull(),
+    price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+    discount: decimal("discount", { precision: 10, scale: 2 })
+});
+
+export const ordersRelations = relations(orders,
+    ({ many }) => ({
+        items: many(orderItems)
+    })
+);
+
+export const itemsRelations = relations(orderItems,
+    ({ one }) => ({
+        order: one(orders, {
+            fields: [orderItems.orderId],
+            references: [orders.orderId]
+        })
+    })
+);
