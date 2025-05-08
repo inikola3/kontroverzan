@@ -11,7 +11,7 @@ export default function FinancialsClient({ ordersData }) {
     async function fetchOrders() {
         setLoading(true)
         try {
-            const res = await fetch(`/api/orders?country=${country}`) // api route
+            const res = await fetch('/api/orders-with-items') // api route
             if (!res.ok) throw new Error(`Failed to fetch orders: ${res.statusText}`)
 
             const data = await res.json()

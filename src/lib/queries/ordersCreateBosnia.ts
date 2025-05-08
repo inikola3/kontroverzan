@@ -29,7 +29,6 @@ type OrderItemInsertType = InferInsertModel<typeof orderItems>
 
 export async function ordersCreateBosnia(orderPayload: payloadType) {
     try {
-        console.error('📦 Creating order for ID:', orderPayload.id)
         const [newOrder] = await db.insert(orders).values(
             {
                 orderId: orderPayload.id.toString(),
@@ -47,10 +46,8 @@ export async function ordersCreateBosnia(orderPayload: payloadType) {
             } as OrderInsertType
         ).returning({ orderId: orders.orderId })
 
-        console.error('🟢 Order inserted:', newOrder)
-
         const orderDbKey = newOrder.orderId
-        console.error("Will insert items for orderId =", orderDbKey)
+
         const itemsToInsert = orderPayload.line_items.map(item => ({
             orderId: orderDbKey,
             quantity: item.quantity ?? 0,
@@ -59,11 +56,7 @@ export async function ordersCreateBosnia(orderPayload: payloadType) {
             discount: parseFloat(item.total_discount ?? '0').toFixed(2)
         } as OrderItemInsertType))
 
-        console.error('📦 Inserting items:', itemsToInsert)
-
         await db.insert(orderItems).values(itemsToInsert)
-
-        console.error('✅ Items inserted successfully')
 
         return newOrder
     } catch (error) {

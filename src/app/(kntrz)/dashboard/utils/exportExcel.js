@@ -36,12 +36,12 @@ export async function exportExcel(data, identifier) {
         let orderTotalBeforeDiscount = 0
         let orderTotalAfterDiscount = 0
         let totalDiff = 0
-
+        console.log('Exported data:', data)
         data.forEach(order => {
             const { id, name, time, items } = order
 
             items.forEach((item, index) => {
-                const discountedPrice = Number(item.price - (item.discount || 0)).toFixed(2)
+                const discountedPrice = Number(item.price - ((item.discount / item.quantity) || 0)).toFixed(2)
                 const totalPrice = Number(item.price * item.quantity).toFixed(2)
                 const totalDiscountedPrice = Number(discountedPrice * item.quantity).toFixed(2)
                 const diff = Number(-(totalPrice - totalDiscountedPrice)).toFixed(2)
