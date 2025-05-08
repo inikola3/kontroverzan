@@ -36,7 +36,7 @@ export async function exportExcel(data, identifier) {
         let orderTotalBeforeDiscount = 0
         let orderTotalAfterDiscount = 0
         let totalDiff = 0
-        console.log('Exported data:', data)
+
         data.forEach(order => {
             const { id, name, time, items } = order
 

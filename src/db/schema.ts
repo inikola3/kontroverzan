@@ -21,7 +21,7 @@ export const orders = pgTable("orders", {
 
 export const orderItems = pgTable("order_items", {
     id: serial("id").primaryKey(),
-    orderId: varchar("order_id").references(() => orders.orderId),
+    orderId: varchar("order_id").references(() => orders.orderId, { onDelete: 'cascade' }),
     quantity: integer("quantity").notNull(),
     name: varchar("name").notNull(),
     price: decimal("price", { precision: 10, scale: 2 }).notNull(),
