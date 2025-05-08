@@ -1,5 +1,5 @@
 import { db } from '@/db'
-import { orders } from '@/db/schema'
+import { orders, orderItems } from '@/db/schema'
 import { InferInsertModel } from 'drizzle-orm'
 
 interface payloadType {
@@ -16,13 +16,21 @@ interface payloadType {
     total_price: string,
     total_discounts: string,
     total_weight: number,
+    line_items?: {
+        quantity?: number,
+        title?: string,
+        price?: string,
+        total_discount?: string
+    }[]
 }
 
 type OrderInsertType = InferInsertModel<typeof orders>
+type OrderItemInsertType = InferInsertModel<typeof orderItems>
 
 export async function ordersCreateBosnia(orderPayload: payloadType) {
     try {
-        const newOrder = await db.insert(orders).values(
+        console.error('📦 Creating order for ID:', orderPayload.id)
+        const [newOrder] = await db.insert(orders).values(
             {
                 orderId: orderPayload.id.toString(),
                 country: 'BIH',
@@ -37,7 +45,26 @@ export async function ordersCreateBosnia(orderPayload: payloadType) {
                 notes: orderPayload.shipping_address?.address2 ?? null,
                 totalDiscounts: parseFloat(orderPayload.total_discounts).toFixed(2),
             } as OrderInsertType
-        )
+        ).returning({ orderId: orders.orderId })
+
+        console.error('🟢 Order inserted:', newOrder)
+
+        const orderDbKey = newOrder.orderId
+        console.error("Will insert items for orderId =", orderDbKey)
+        const itemsToInsert = orderPayload.line_items.map(item => ({
+            orderId: orderDbKey,
+            quantity: item.quantity ?? 0,
+            name: item.title ?? 'unknown',
+            price: parseFloat(item.price ?? '0').toFixed(2),
+            discount: parseFloat(item.total_discount ?? '0').toFixed(2)
+        } as OrderItemInsertType))
+
+        console.error('📦 Inserting items:', itemsToInsert)
+
+        await db.insert(orderItems).values(itemsToInsert)
+
+        console.error('✅ Items inserted successfully')
+
         return newOrder
     } catch (error) {
         console.error('Failed to create order from webhook', error)
