@@ -126,7 +126,7 @@ export async function exportExcel(data, identifier) {
                         'Masa pošiljke': parseFloat((masa / 1000).toFixed(1)),
                         'Broj paketa': brojPaketa,
                         'Vrijednost': vrijednost,
-                        'Opis pošiljke': opis,
+                        'Opis pošiljke': opis ? opis.toString() : opis,
                         'Hitna pošiljka do (h)': hitnaPosiljka,
                         'Otkupnina iznos': vrijednost,
                         'Povratnica (da/ne)': povratnica,
