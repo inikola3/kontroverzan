@@ -104,7 +104,7 @@ export async function exportExcel(data, identifier) {
                     ['Masa pošiljke']: masa,
                     ['Opis pošiljke']: opis
                 }) => {
-                    const brojRacuna = '194-1101147402-178'
+                    const brojRacuna = ''
                     const vrstaPosiljke = 'PAKET'
                     const brojPaketa = 1
                     const hitnaPosiljka = 12
@@ -126,7 +126,7 @@ export async function exportExcel(data, identifier) {
                         'Masa pošiljke': parseFloat((masa / 1000).toFixed(1)),
                         'Broj paketa': brojPaketa,
                         'Vrijednost': vrijednost,
-                        'Opis pošiljke': opis ? opis.toString() : opis,
+                        'Opis pošiljke': `Napomena kupca - ${opis ? opis : ''}`,
                         'Hitna pošiljka do (h)': hitnaPosiljka,
                         'Otkupnina iznos': vrijednost,
                         'Povratnica (da/ne)': povratnica,
