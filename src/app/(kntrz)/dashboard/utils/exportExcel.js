@@ -104,7 +104,7 @@ export async function exportExcel(data, identifier) {
                     ['Masa pošiljke']: masa,
                     ['Opis pošiljke']: opis
                 }) => {
-                    const brojRacuna = ''
+                    const brojRacuna = id
                     const vrstaPosiljke = 'PAKET'
                     const brojPaketa = 1
                     const hitnaPosiljka = 12
@@ -121,7 +121,7 @@ export async function exportExcel(data, identifier) {
                         'Mjesto/Grad': grad,
                         'Kontakt osoba': ime,
                         'Telefon': telefon,
-                        'Broj računa/eksterna šifra': brojRacuna,
+                        'Broj računa/eksterna šifra': `1114201826${brojRacuna}`,
                         'Vrsta pošiljke': vrstaPosiljke,
                         'Masa pošiljke': parseFloat((masa / 1000).toFixed(1)),
                         'Broj paketa': brojPaketa,
