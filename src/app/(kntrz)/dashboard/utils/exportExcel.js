@@ -107,8 +107,8 @@ export async function exportExcel(data, identifier) {
                     const brojRacuna = id
                     const vrstaPosiljke = 'PAKET'
                     const brojPaketa = 1
-                    const hitnaPosiljka = 12
-                    const povratnica = 'da'
+                    const hitnaPosiljka = ''
+                    const povratnica = 'ne'
                     const osiguranje = 'ne'
                     const otvaranje = 'ne'
                     const dostavaVikendom = 'ne'
