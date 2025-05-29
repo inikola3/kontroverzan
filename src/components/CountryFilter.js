@@ -17,8 +17,14 @@ export function CountryFilter({ country, setCountry }) {
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="h-9 w-full">
-                        {country === "Serbia" ? <div className="flex flex-row"><img src="/serbia.svg" alt="Flag of Serbia" className="w-[20px] mr-3" />Srbija</div>
-                            : <div className="flex flex-row"><img src="/bosnia.svg" alt="Flag of Bosnia" className="w-[20px] mr-3" />BiH</div>
+                        {country === "Serbia" ? <div className="flex flex-row">
+                            <img src="/demo-flag.svg" alt="Demo flag" className="w-[20px] mr-3" />
+                            Country 1
+                        </div>
+                            : <div className="flex flex-row">
+                                <img src="/demo-flag.svg" alt="Demo flag" className="w-[20px] mr-3" />
+                                Country 2
+                            </div>
                         }
                     </Button>
                 </DropdownMenuTrigger>
@@ -26,8 +32,14 @@ export function CountryFilter({ country, setCountry }) {
                     <DropdownMenuLabel>Country</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuRadioGroup value={country} onValueChange={setCountry}>
-                        <DropdownMenuRadioItem value="Serbia" className="cursor-pointer"><img src="/serbia.svg" alt="Flag of Serbia" className="w-[30px] mr-3" />Srbija</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="BIH" className="cursor-pointer"><img src="/bosnia.svg" alt="Flag of Bosnia" className="w-[30px] mr-3" />BiH</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="Serbia" className="cursor-pointer">
+                            <img src="/demo-flag.svg" alt="Demo flag" className="w-[30px] mr-3" />
+                            Country 1
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="BIH" className="cursor-pointer">
+                            <img src="/demo-flag.svg" alt="Demo flag" className="w-[30px] mr-3" />
+                            Country 2
+                        </DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
             </DropdownMenu>

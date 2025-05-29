@@ -11,8 +11,10 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 
 
 export default async function AccountMenu() {
+    const demoUser = true
+
     const { getUser } = getKindeServerSession()
-    const user = await getUser()
+    const user = !demoUser ? await getUser() : { given_name: 'Demo', family_name: 'User', email: 'demouser@demo.com' }
 
     return (
         <Popover>

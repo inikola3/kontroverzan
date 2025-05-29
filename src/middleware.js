@@ -23,6 +23,6 @@ export const config = {
          * - login
          * - homepage (represented with $ after beginning /)
          */
-        '/((?!api|_next/static|_next/image|auth|favicon.ico|robots.txt|images|login|logoBlack.svg|$).*)',
+        // '/((?!api|_next/static|_next/image|auth|favicon.ico|robots.txt|images|login|logoBlack.svg|$).*)',
     ]
 }
